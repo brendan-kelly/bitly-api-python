@@ -736,7 +736,7 @@ class Connection(object):
         return signature
 
     def _call_oauth2_metrics(self, endpoint, params, unit=None, units=None,
-                             tz_offset=None, rollup=None, limit=None,
+                             timezone=None, rollup=None, limit=None,
                              unit_reference_ts=None):
         if unit is not None:
             assert unit in ("minute", "hour", "day", "week", "mweek", "month")
@@ -745,15 +745,15 @@ class Connection(object):
             assert isinstance(units, integer_types), \
                 "Unit (%r) must be integer" % units
             params["units"] = units
-        if tz_offset is not None:
-            # tz_offset can either be a hour offset, or a timezone like
+        if timezone is not None:
+            # timezone can either be a hour offset, or a timezone like
             # North_America/New_York
-            if isinstance(tz_offset, integer_types):
-                msg = "integer tz_offset must be between -12 and 12"
-                assert -12 <= tz_offset <= 12, msg
+            if isinstance(timezone, integer_types):
+                msg = "integer timezone must be between -14 and 14"
+                assert -14 <= timezone <= 14, msg
             else:
-                assert isinstance(tz_offset, string_types)
-            params["tz_offset"] = tz_offset
+                assert isinstance(timezone, string_types)
+            params["timezone"] = timezone
         if rollup is not None:
             assert isinstance(rollup, bool)
             params["rollup"] = "true" if rollup else "false"
